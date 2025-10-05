@@ -4,8 +4,9 @@ namespace ClassLibrary
 {
     public class Ship
     {
-        public Ship(string name, FlagColor flagColor) 
-        { 
+        public Ship(int id, string name, FlagColor flagColor) 
+        {
+            Id = id;
             Name = name;
             Hp = 100;
             FlagColor = flagColor;
@@ -13,11 +14,18 @@ namespace ClassLibrary
         }
 
 
+        private int id;
         private string name;
         private short hp;
         private FlagColor flagColor;
         private bool isYourTurn;
 
+
+        public int Id
+        {
+            get => id;
+            set => id = value;
+        }
 
         public string Name
         {

@@ -6,15 +6,17 @@ namespace ClassLibrary
     {
         private List<Ship> Ships = new List<Ship>
         {
-            new Ship("Vista", FlagColor.Green),
-            new Ship("Kingslayer", FlagColor.Red),
-            new Ship("ObraDinn", FlagColor.Blue)
+            new Ship(1, "Vista", FlagColor.Green),
+            new Ship(2, "Kingslayer", FlagColor.Red),
+            new Ship(3, "ObraDinn", FlagColor.Blue)
         };
 
         private List<Ship> ShipsInBattle = new List<Ship>();
 
         public delegate void GameOverHandler();
         public event GameOverHandler? GameOverNotify;
+
+        public int idCount = 4;
 
 
 
@@ -28,9 +30,10 @@ namespace ClassLibrary
         {
             if (!string.IsNullOrWhiteSpace(name) && flagColor.ToString() != "_No_Color_")
             {
-                Ship ship = new Ship(name, FlagColor.Black);
+                Ship ship = new Ship(idCount, name, FlagColor.Black);
                 SetFlagColor(ship, flagColor.ToString());
                 Ships.Add(ship);
+                idCount++;
                 return ship;
             }
             return null;
