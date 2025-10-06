@@ -1,22 +1,27 @@
-﻿
+﻿using Model;
+using DataAccessLayer;
+using System.Data.SqlClient;
 
 namespace ClassLibrary
 {
     public class Logic
     {
-        private List<Ship> Ships = new List<Ship>
-        {
-            new Ship(1, "Vista", FlagColor.Green),
-            new Ship(2, "Kingslayer", FlagColor.Red),
-            new Ship(3, "ObraDinn", FlagColor.Blue)
-        };
+        IRepository<Ship> repository = new EntityRepository<Ship>();
 
+        public Logic() 
+        {
+
+            //CreateShip("Vista", FlagColor.Green);
+            //CreateShip("Kingslayer", FlagColor.Red);
+            //CreateShip("ObraDinn", FlagColor.Blue);
+
+        }
+
+        public List<Ship> Ships = new List<Ship>();
         private List<Ship> ShipsInBattle = new List<Ship>();
 
         public delegate void GameOverHandler();
         public event GameOverHandler? GameOverNotify;
-
-        public int idCount = 4;
 
 
 
@@ -30,10 +35,12 @@ namespace ClassLibrary
         {
             if (!string.IsNullOrWhiteSpace(name) && flagColor.ToString() != "_No_Color_")
             {
-                Ship ship = new Ship(idCount, name, FlagColor.Black);
+                Ship ship = new Ship(name, FlagColor.Black);
                 SetFlagColor(ship, flagColor.ToString());
                 Ships.Add(ship);
-                idCount++;
+                repository.Create(ship);
+                repository.Save();
+
                 return ship;
             }
             return null;
@@ -56,9 +63,9 @@ namespace ClassLibrary
         /// <returns>Объект искомого корабля. Null, если список кораблей пуст.</returns>
         public Ship GetShip(object ship)
         {
-            if (Ships.Count == 0) 
-            { 
-                return null; 
+            if (Ships.Count == 0)
+            {
+                return null;
             }
 
             return Ships[Ships.IndexOf((Ship)ship)];
@@ -158,7 +165,7 @@ namespace ClassLibrary
         public void AttackShipHP(object ship)
         {
             Ships[Ships.IndexOf((Ship)ship)].Hp -= 20;
-            
+
             if (Ships[Ships.IndexOf((Ship)ship)].Hp <= 0)
             {
                 ShipsInBattle.Remove((Ship)ship);
@@ -251,7 +258,7 @@ namespace ClassLibrary
             {
                 ship.Hp = 100;
             }
-        }   
+        }
 
 
 

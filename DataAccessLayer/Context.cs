@@ -4,14 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ClassLibrary;
+using Model;
 
 namespace DataAccessLayer
 {
 
     public class Context : DbContext
     {
-        public Context() : base("DbConnection") { }
+        public Context() : base("ShipsDB") { }
         public DbSet<Ship> Ships { get; set; }
     }
 }

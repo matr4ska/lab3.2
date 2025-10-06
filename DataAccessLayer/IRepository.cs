@@ -1,13 +1,12 @@
 ﻿namespace DataAccessLayer
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T>
     where T : class
     {
-        IEnumerable<T> GetItemsList();
+        IEnumerable<T> GetAll();
         T GetItem(int id);
-        void Create(T item);
-        void Update(T item);
+        void Create(T obj);
+        void Update(T obj);
         void Delete(int id);
-        void Save();
     }
 }

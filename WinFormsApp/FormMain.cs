@@ -1,4 +1,5 @@
 using ClassLibrary;
+using Model;
 
 
 namespace WinFormsApp
