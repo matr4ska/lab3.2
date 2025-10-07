@@ -10,7 +10,7 @@ using static Dapper.SqlMapper;
 namespace DataAccessLayer
 {
     public class EntityRepository<T> : IRepository<T> 
-        where T : class, IDomainObject, new()
+    where T : class, IDomainObject
     {
         public Context context;
 
@@ -21,7 +21,7 @@ namespace DataAccessLayer
 
         public IEnumerable<T> GetAll()
         {
-            return context.Set<T>().ToList();
+            return context.Set<T>();
         }
 
         public T GetItem(int id)
@@ -32,20 +32,18 @@ namespace DataAccessLayer
         public void Create(T item)
         {
             context.Set<T>().Add(item);
+            context.SaveChanges();
         }   
 
         public void Update(T item)
         {
             context.Entry(item).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             context.Set<T>().Remove(GetItem(id));
-        }
-
-        public void Save()
-        {
             context.SaveChanges();
         }
     }

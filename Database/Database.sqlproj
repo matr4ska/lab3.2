@@ -62,8 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Ships.sql" />
+    <Build Include="dbo\Tables\ShipsInBattle.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishedLocations\Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
 </Project>
